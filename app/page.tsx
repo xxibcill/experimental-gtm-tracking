@@ -1,21 +1,21 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import Link from "next/link";
-import { trackButtonClick, trackExternalLink } from "@/lib/gtm";
+import Image from 'next/image'
+import Link from 'next/link'
+import { trackButtonClick, trackExternalLink } from '@/lib/gtm'
 
 export default function Home() {
   const handleCtaClick = () => {
-    trackButtonClick("deploy_now_cta", "Deploy Now", "home_hero");
-  };
+    trackButtonClick('deploy_now_cta', 'Deploy Now', 'home_hero')
+  }
 
   const handleDocsClick = () => {
-    trackButtonClick("documentation_cta", "Documentation", "home_hero");
-  };
+    trackButtonClick('documentation_cta', 'Documentation', 'home_hero')
+  }
 
   const handleExternalLinkClick = (url: string, text: string) => {
-    trackExternalLink(url, text);
-  };
+    trackExternalLink(url, text)
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -35,49 +35,49 @@ export default function Home() {
         <div className="flex items-center gap-6">
           <Link
             href="/"
-            className="text-sm font-medium hover:text-gray-600"
+            className="text-base font-medium hover:text-gray-400 transition-colors"
             data-gtm-nav="home"
           >
             Home
           </Link>
           <Link
             href="/content-generator"
-            className="text-sm font-medium hover:text-gray-600"
+            className="text-base font-medium hover:text-gray-400 transition-colors"
             data-gtm-nav="content-generator"
           >
             Content Generator
           </Link>
           <Link
             href="/tracking-demo"
-            className="text-sm font-medium hover:text-gray-600"
+            className="text-base font-medium hover:text-gray-400 transition-colors"
             data-gtm-nav="tracking-demo"
           >
             Tracking Demo
           </Link>
           <Link
             href="/ecommerce"
-            className="text-sm font-medium hover:text-gray-600"
+            className="text-base font-medium hover:text-gray-400 transition-colors"
             data-gtm-nav="ecommerce"
           >
             Ecommerce
           </Link>
           <Link
             href="/scroll-tracking"
-            className="text-sm font-medium hover:text-gray-600"
+            className="text-base font-medium hover:text-gray-400 transition-colors"
             data-gtm-nav="scroll-tracking"
           >
             Scroll Tracking
           </Link>
           <Link
             href="/video-tracking"
-            className="text-sm font-medium hover:text-gray-600"
+            className="text-base font-medium hover:text-gray-400 transition-colors"
             data-gtm-nav="video-tracking"
           >
             Video Tracking
           </Link>
           <Link
             href="/user-engagement"
-            className="text-sm font-medium hover:text-gray-600"
+            className="text-base font-medium hover:text-gray-400 transition-colors"
             data-gtm-nav="user-engagement"
           >
             User Engagement
@@ -101,13 +101,13 @@ export default function Home() {
               GTM Learning Project
             </h1>
             <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-              This is a comprehensive demo of Google Tag Manager implementation.
-              Explore the pages to see different tracking patterns in action.
+              This is a comprehensive demo of Google Tag Manager implementation. Explore the pages
+              to see different tracking patterns in action.
             </p>
           </div>
           <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
             <a
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px] cursor-pointer"
+              className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-5 text-black transition-colors hover:bg-gray-100 md:w-[158px] cursor-pointer"
               href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
               target="_blank"
               rel="noopener noreferrer"
@@ -116,22 +116,16 @@ export default function Home() {
               data-gtm-label="deploy_now"
               onClick={() =>
                 handleExternalLinkClick(
-                  "https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app",
-                  "Deploy Now"
+                  'https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app',
+                  'Deploy Now',
                 )
               }
             >
-              <Image
-                className="dark:invert"
-                src="/vercel.svg"
-                alt="Vercel logomark"
-                width={16}
-                height={16}
-              />
+              <Image src="/vercel.svg" alt="Vercel logomark" width={16} height={16} />
               Deploy Now
             </a>
             <a
-              className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px] cursor-pointer"
+              className="flex h-12 w-full items-center justify-center rounded-full border-2 border-solid border-white/30 px-5 transition-colors hover:border-white/50 hover:bg-white/10 md:w-[158px] cursor-pointer text-white"
               href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
               target="_blank"
               rel="noopener noreferrer"
@@ -140,8 +134,8 @@ export default function Home() {
               data-gtm-label="documentation"
               onClick={() =>
                 handleExternalLinkClick(
-                  "https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app",
-                  "Documentation"
+                  'https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app',
+                  'Documentation',
                 )
               }
             >
@@ -158,7 +152,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Link
               href="/content-generator"
-              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white px-4 transition-colors hover:bg-gray-100"
+              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white text-black px-4 transition-colors hover:bg-gray-100"
               data-gtm-category="navigation"
               data-gtm-action="click"
               data-gtm-label="content_generator"
@@ -167,7 +161,7 @@ export default function Home() {
             </Link>
             <Link
               href="/tracking-demo"
-              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white px-4 transition-colors hover:bg-gray-100"
+              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white text-black px-4 transition-colors hover:bg-gray-100"
               data-gtm-category="navigation"
               data-gtm-action="click"
               data-gtm-label="tracking_demo"
@@ -176,7 +170,7 @@ export default function Home() {
             </Link>
             <Link
               href="/ecommerce"
-              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white px-4 transition-colors hover:bg-gray-100"
+              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white text-black px-4 transition-colors hover:bg-gray-100"
               data-gtm-category="navigation"
               data-gtm-action="click"
               data-gtm-label="ecommerce"
@@ -185,7 +179,7 @@ export default function Home() {
             </Link>
             <Link
               href="/scroll-tracking"
-              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white px-4 transition-colors hover:bg-gray-100"
+              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white text-black px-4 transition-colors hover:bg-gray-100"
               data-gtm-category="navigation"
               data-gtm-action="click"
               data-gtm-label="scroll_tracking"
@@ -194,7 +188,7 @@ export default function Home() {
             </Link>
             <Link
               href="/video-tracking"
-              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white px-4 transition-colors hover:bg-gray-100"
+              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white text-black px-4 transition-colors hover:bg-gray-100"
               data-gtm-category="navigation"
               data-gtm-action="click"
               data-gtm-label="video_tracking"
@@ -203,7 +197,7 @@ export default function Home() {
             </Link>
             <Link
               href="/user-engagement"
-              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white px-4 transition-colors hover:bg-gray-100"
+              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white text-black px-4 transition-colors hover:bg-gray-100"
               data-gtm-category="navigation"
               data-gtm-action="click"
               data-gtm-label="user_engagement"
@@ -214,5 +208,5 @@ export default function Home() {
         </div>
       </section>
     </div>
-  );
+  )
 }

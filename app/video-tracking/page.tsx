@@ -183,22 +183,22 @@ export default function VideoTracking() {
           <span className="font-semibold text-lg">GTM Learning</span>
         </div>
         <div className="flex items-center gap-6">
-          <Link href="/" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/" className="text-base font-medium hover:text-gray-400 transition-colors">
             Home
           </Link>
-          <Link href="/tracking-demo" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/tracking-demo" className="text-base font-medium hover:text-gray-400 transition-colors">
             Tracking Demo
           </Link>
-          <Link href="/ecommerce" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/ecommerce" className="text-base font-medium hover:text-gray-400 transition-colors">
             Ecommerce
           </Link>
-          <Link href="/scroll-tracking" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/scroll-tracking" className="text-base font-medium hover:text-gray-400 transition-colors">
             Scroll Tracking
           </Link>
-          <Link href="/video-tracking" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/video-tracking" className="text-base font-medium hover:text-gray-400 transition-colors">
             Video Tracking
           </Link>
-          <Link href="/user-engagement" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/user-engagement" className="text-base font-medium hover:text-gray-400 transition-colors">
             User Engagement
           </Link>
         </div>
@@ -258,7 +258,7 @@ export default function VideoTracking() {
                 Play/Reset
               </button>
               <div className="flex-1">
-                <div className="flex justify-between text-sm text-gray-600 mb-1">
+                <div className="flex justify-between text-base text-gray-300 mb-1">
                   <span>Status: {video1State.status}</span>
                   <span>
                     {formatTime(video1State.currentTime)} /{" "}
@@ -356,7 +356,7 @@ export default function VideoTracking() {
                 Play/Reset
               </button>
               <div className="flex-1">
-                <div className="flex justify-between text-sm text-gray-600 mb-1">
+                <div className="flex justify-between text-base text-gray-300 mb-1">
                   <span>Status: {video2State.status}</span>
                   <span>
                     {formatTime(video2State.currentTime)} /{" "}

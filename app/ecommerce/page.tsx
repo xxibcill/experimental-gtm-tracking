@@ -241,22 +241,22 @@ export default function Ecommerce() {
           <span className="font-semibold text-lg">GTM Learning</span>
         </div>
         <div className="flex items-center gap-6">
-          <Link href="/" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/" className="text-base font-medium hover:text-gray-400 transition-colors">
             Home
           </Link>
-          <Link href="/tracking-demo" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/tracking-demo" className="text-base font-medium hover:text-gray-400 transition-colors">
             Tracking Demo
           </Link>
-          <Link href="/ecommerce" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/ecommerce" className="text-base font-medium hover:text-gray-400 transition-colors">
             Ecommerce
           </Link>
-          <Link href="/scroll-tracking" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/scroll-tracking" className="text-base font-medium hover:text-gray-400 transition-colors">
             Scroll Tracking
           </Link>
-          <Link href="/video-tracking" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/video-tracking" className="text-base font-medium hover:text-gray-400 transition-colors">
             Video Tracking
           </Link>
-          <Link href="/user-engagement" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/user-engagement" className="text-base font-medium hover:text-gray-400 transition-colors">
             User Engagement
           </Link>
         </div>
@@ -282,11 +282,11 @@ export default function Ecommerce() {
                     data-gtm-product-id={product.id}
                   >
                     <div className="aspect-square bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
-                      <span className="text-gray-400">{product.name}</span>
+                      <span className="text-gray-400 text-xs text-center px-2">{product.name}</span>
                     </div>
-                    <h3 className="font-semibold text-sm mb-1">{product.name}</h3>
-                    <p className="text-xs text-gray-500 mb-2">{product.brand}</p>
-                    <p className="text-lg font-bold mb-3">${product.price.toFixed(2)}</p>
+                    <h3 className="font-semibold text-base mb-1">{product.name}</h3>
+                    <p className="text-sm text-gray-400 mb-2">{product.brand}</p>
+                    <p className="text-xl font-bold mb-3">${product.price.toFixed(2)}</p>
                     <button
                       onClick={() => {
                         handleProductClick(product, index + 1);
@@ -323,18 +323,18 @@ export default function Ecommerce() {
                             className="flex justify-between items-center border-b border-gray-200 pb-4"
                           >
                             <div>
-                              <p className="font-medium text-sm">{item.product.name}</p>
-                              <p className="text-xs text-gray-500">
+                              <p className="font-semibold text-base">{item.product.name}</p>
+                              <p className="text-sm text-gray-400">
                                 Qty: {item.quantity}
                               </p>
                             </div>
                             <div className="text-right">
-                              <p className="font-semibold">
+                              <p className="font-semibold mb-2">
                                 ${(item.product.price * item.quantity).toFixed(2)}
                               </p>
                               <button
                                 onClick={() => removeFromCart(item.product)}
-                                className="text-xs text-red-600 hover:text-red-800"
+                                className="text-sm font-medium text-red-500 hover:text-red-700 underline transition-colors"
                               >
                                 Remove
                               </button>

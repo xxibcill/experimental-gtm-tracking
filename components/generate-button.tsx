@@ -13,7 +13,7 @@ export function GenerateButton({ onClick, isLoading }: GenerateButtonProps) {
       onClick={onClick}
       disabled={isLoading}
       data-action="generate"
-      className="h-12 w-full rounded-[10px] bg-primary text-base font-normal text-white hover:bg-primary/90"
+      className="h-12 w-full rounded-[10px] bg-primary text-base font-semibold text-primary-foreground hover:bg-primary/90"
     >
       {isLoading ? "Generating..." : "Generate Content"}
     </Button>

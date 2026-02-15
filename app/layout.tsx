@@ -56,6 +56,15 @@ export default function RootLayout({
 
               // Global error tracking
               window.onerror = function(message, source, lineno, colno, error) {
+                // Ignore browser extension errors
+                if (source && source.includes('chrome-extension://')) {
+                  return false;
+                }
+                // Ignore ethereum property redefinition errors from crypto wallets
+                if (message && String(message).includes('Cannot redefine property: ethereum')) {
+                  return false;
+                }
+
                 window.dataLayer.push({
                   event: 'js_error',
                   error_message: String(message),
