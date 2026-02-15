@@ -26,8 +26,8 @@ export default function VideoTracking() {
     progress: 0,
   });
 
-  const video1Ref = useRef<HTMLVideoElement>(null);
-  const video2Ref = useRef<HTMLVideoElement>(null);
+  const video1Ref = useRef<HTMLVideoElement | null>(null);
+  const video2Ref = useRef<HTMLVideoElement | null>(null);
 
   // Track progress milestones
   const [video1Milestones, setVideo1Milestones] = useState<number[]>([]);
