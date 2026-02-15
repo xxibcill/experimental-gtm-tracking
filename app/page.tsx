@@ -41,6 +41,13 @@ export default function Home() {
             Home
           </Link>
           <Link
+            href="/content-generator"
+            className="text-sm font-medium hover:text-gray-600"
+            data-gtm-nav="content-generator"
+          >
+            Content Generator
+          </Link>
+          <Link
             href="/tracking-demo"
             className="text-sm font-medium hover:text-gray-600"
             data-gtm-nav="tracking-demo"
@@ -149,6 +156,15 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold mb-8 text-center">Quick Links</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Link
+              href="/content-generator"
+              className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white px-4 transition-colors hover:bg-gray-100"
+              data-gtm-category="navigation"
+              data-gtm-action="click"
+              data-gtm-label="content_generator"
+            >
+              Content Generator
+            </Link>
             <Link
               href="/tracking-demo"
               className="flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white px-4 transition-colors hover:bg-gray-100"

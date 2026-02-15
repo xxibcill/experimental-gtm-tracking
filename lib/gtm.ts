@@ -441,3 +441,60 @@ export function initErrorTracking(): void {
     };
   }
 }
+
+/**
+ * Track generate button click
+ * @param category - The content category
+ * @param cluster - The content cluster/topic
+ */
+export function trackGenerateClick(category: string, cluster: string): void {
+  pushEvent("generate_click", {
+    button_name: "generate",
+    category,
+    cluster,
+  });
+}
+
+/**
+ * Track successful content generation
+ * @param generationTimeMs - Time taken to generate in milliseconds
+ */
+export function trackGenerateSuccess(generationTimeMs: number): void {
+  pushEvent("generate_success", {
+    generation_time_ms: generationTimeMs,
+  });
+}
+
+/**
+ * Track failed content generation
+ * @param errorType - Type of error that occurred
+ */
+export function trackGenerateFailed(errorType: string): void {
+  pushEvent("generate_failed", {
+    error_type: errorType,
+  });
+}
+
+/**
+ * Track when output is generated
+ * @param category - The content category
+ * @param cluster - The content cluster/topic
+ */
+export function trackOutputGenerated(category: string, cluster: string): void {
+  pushEvent("output_generated", {
+    category,
+    cluster,
+  });
+}
+
+/**
+ * Track copy to clipboard action
+ * @param category - The content category
+ * @param cluster - The content cluster/topic
+ */
+export function trackCopyToClipboard(category: string, cluster: string): void {
+  pushEvent("copy_to_clipboard", {
+    category,
+    cluster,
+  });
+}

@@ -36,7 +36,7 @@ export default function VideoTracking() {
   const milestones = [25, 50, 75, 100];
 
   const handleVideoTimeUpdate = (
-    videoRef: React.RefObject<HTMLVideoElement>,
+    videoRef: React.RefObject<HTMLVideoElement | null>,
     videoId: string,
     videoTitle: string,
     currentMilestones: number[],
@@ -148,7 +148,7 @@ export default function VideoTracking() {
   };
 
   const resetVideo = (
-    videoRef: React.RefObject<HTMLVideoElement>,
+    videoRef: React.RefObject<HTMLVideoElement | null>,
     setState: React.Dispatch<React.SetStateAction<VideoState>>,
     setMilestones: React.Dispatch<React.SetStateAction<number[]>>
   ) => {
