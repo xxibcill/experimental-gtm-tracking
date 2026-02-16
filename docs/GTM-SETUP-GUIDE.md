@@ -56,9 +56,56 @@ The GTM integration in [app/layout.tsx](app/layout.tsx):
 - Sets up global error tracking for JavaScript errors and unhandled promise rejections
 - Includes a noscript fallback for browsers without JavaScript enabled
 
-## Step 4: Configure Tags in GTM Dashboard
+## Step 4: Understanding Referral Tracking (ref_id)
 
-### 4.1 Create a GA4 Configuration Tag
+This project includes automatic referral tracking via the `ref_id` parameter. Here's how it works:
+
+### How It Works
+
+1. **First Visit with ref_id**: When a user visits your site with a `ref_id` parameter (e.g., `https://yoursite.com?ref_id=abc123`), the system:
+   - Extracts the `ref_id` from the URL
+   - Stores it in the browser's localStorage
+   - Includes it in all GTM events
+
+2. **Return Visits**: When the same user returns to your site (even without the `ref_id` in the URL):
+   - The system retrieves the stored `ref_id` from localStorage
+   - Continues to include it in all GTM events
+   - Maintains attribution across sessions
+
+3. **New ref_id**: If a user visits with a different `ref_id`, the new value overwrites the previous one.
+
+### Use Cases
+
+- **Affiliate Marketing**: Track which affiliate partner brought the user
+- **Campaign Attribution**: Identify which marketing campaign converted
+- **Referral Programs**: Track user-to-user referrals
+- **Partner Tracking**: Measure effectiveness of partner integrations
+
+### Testing ref_id Tracking
+
+1. Visit your site with a ref_id: `http://localhost:3000?ref_id=test123`
+2. Open browser console and check for: `[RefID] Tracking initialized with ref_id: test123`
+3. In GTM Preview mode, verify all events include `ref_id: test123`
+4. Navigate to other pages - the `ref_id` persists
+5. Close and reopen the browser - the `ref_id` still persists
+6. Visit with a new ref_id: `http://localhost:3000?ref_id=test456`
+7. Verify the new ref_id replaces the old one
+
+### Implementation Details
+
+The ref_id tracking is implemented through:
+- **[lib/ref-id.ts](lib/ref-id.ts)** - Core ref_id utilities and localStorage management
+- **[hooks/use-ref-id.ts](hooks/use-ref-id.ts)** - React hook for initialization
+- **[components/ref-id-provider.tsx](components/ref-id-provider.tsx)** - Client component wrapper
+- **[lib/gtm.ts](lib/gtm.ts)** - Automatic inclusion in all events via `pushEvent()`
+
+All GTM events automatically include the `ref_id` parameter (or `null` if no ref_id exists).
+
+---
+
+## Step 5: Configure Tags in GTM Dashboard
+
+### 5.1 Create a GA4 Configuration Tag
 
 1. In GTM, click **Tags** → **New**
 2. **Tag Configuration**: Select **Google Analytics: GA4 Configuration**
@@ -67,7 +114,7 @@ The GTM integration in [app/layout.tsx](app/layout.tsx):
 5. Name it "GA4 - Configuration"
 6. Click **Save**
 
-### 4.2 Create GA4 Event Tags
+### 5.2 Create GA4 Event Tags
 
 The project uses custom events pushed to the dataLayer. For each event below, create a GA4 Event Tag:
 
@@ -82,47 +129,49 @@ The project uses custom events pushed to the dataLayer. For each event below, cr
 
 #### Core Events
 
+**Note**: All events automatically include a `ref_id` parameter if the user arrived via a referral link (e.g., `?ref_id=123`). The `ref_id` is stored in localStorage and persists across sessions.
+
 | Event Name | Description | Parameters |
 |------------|-------------|------------|
-| `button_click` | Button interactions | `button_name`, `button_text`, `button_location` |
-| `external_link_click` | External link clicks | `link_url`, `link_text`, `link_domain` |
-| `form_submit` | Form submissions | `form_name`, `form_id` |
-| `page_view` | Custom page views | `page_path`, `page_title` |
+| `button_click` | Button interactions | `ref_id`, `button_name`, `button_text`, `button_location` |
+| `external_link_click` | External link clicks | `ref_id`, `link_url`, `link_text`, `link_domain` |
+| `form_submit` | Form submissions | `ref_id`, `form_name`, `form_id` |
+| `page_view` | Custom page views | `ref_id`, `page_path`, `page_title` |
 
 #### Ecommerce Events (GA4 Enhanced Ecommerce)
 
 | Event Name | Description | Parameters |
 |------------|-------------|------------|
-| `view_item_list` | Product list viewed | `ecommerce.items[]` |
-| `select_item` | Product clicked | `ecommerce.items[]` |
-| `add_to_cart` | Product added to cart | `ecommerce.value`, `ecommerce.currency`, `ecommerce.items[]` |
-| `remove_from_cart` | Product removed from cart | `ecommerce.value`, `ecommerce.currency`, `ecommerce.items[]` |
-| `begin_checkout` | Checkout started | `ecommerce.items[]`, `ecommerce.checkout_step` |
-| `purchase` | Purchase completed | `ecommerce.transaction_id`, `ecommerce.value`, `ecommerce.tax`, `ecommerce.shipping`, `ecommerce.currency`, `ecommerce.items[]` |
+| `view_item_list` | Product list viewed | `ref_id`, `ecommerce.items[]` |
+| `select_item` | Product clicked | `ref_id`, `ecommerce.items[]` |
+| `add_to_cart` | Product added to cart | `ref_id`, `ecommerce.value`, `ecommerce.currency`, `ecommerce.items[]` |
+| `remove_from_cart` | Product removed from cart | `ref_id`, `ecommerce.value`, `ecommerce.currency`, `ecommerce.items[]` |
+| `begin_checkout` | Checkout started | `ref_id`, `ecommerce.items[]`, `ecommerce.checkout_step` |
+| `purchase` | Purchase completed | `ref_id`, `ecommerce.transaction_id`, `ecommerce.value`, `ecommerce.tax`, `ecommerce.shipping`, `ecommerce.currency`, `ecommerce.items[]` |
 
 #### Engagement Events
 
 | Event Name | Description | Parameters |
 |------------|-------------|------------|
-| `scroll_depth` | Scroll milestones | `scroll_depth`, `scroll_depth_unit`, `page_path` |
-| `video_engagement` | Video interactions | `video_id`, `video_title`, `video_status`, `video_progress` |
-| `user_engagement` | User engagement metrics | `engagement_time_seconds`, `engagement_score` |
+| `scroll_depth` | Scroll milestones | `ref_id`, `scroll_depth`, `scroll_depth_unit`, `page_path` |
+| `video_engagement` | Video interactions | `ref_id`, `video_id`, `video_title`, `video_status`, `video_progress` |
+| `user_engagement` | User engagement metrics | `ref_id`, `engagement_time_seconds`, `engagement_score` |
 
 #### Content Generator Events (New)
 
 | Event Name | Description | Parameters |
 |------------|-------------|------------|
-| `generate_click` | Generate button clicked | `button_name`, `category`, `cluster` |
-| `generate_success` | Content generated successfully | `generation_time_ms` |
-| `generate_failed` | Content generation failed | `error_type` |
-| `output_generated` | Output displayed | `category`, `cluster` |
-| `copy_to_clipboard` | Copied to clipboard | `category`, `cluster` |
+| `generate_click` | Generate button clicked | `ref_id`, `button_name`, `category`, `cluster` |
+| `generate_success` | Content generated successfully | `ref_id`, `generation_time_ms` |
+| `generate_failed` | Content generation failed | `ref_id`, `error_type` |
+| `output_generated` | Output displayed | `ref_id`, `category`, `cluster` |
+| `copy_to_clipboard` | Copied to clipboard | `ref_id`, `category`, `cluster` |
 
 #### Error Events
 
 | Event Name | Description | Parameters |
 |------------|-------------|------------|
-| `js_error` | JavaScript errors | `error_message`, `error_stack`, `error_lineno`, `error_colno`, `error_source` |
+| `js_error` | JavaScript errors | `ref_id`, `error_message`, `error_stack`, `error_lineno`, `error_colno`, `error_source` |
 
 ### Quick Tag Setup (Recommended)
 
@@ -137,7 +186,7 @@ Instead of creating tags individually, you can create a **single GA4 Event tag**
 
 This single tag will handle all custom events from the dataLayer.
 
-## Step 5: Preview and Test
+## Step 6: Preview and Test
 
 ### Testing Locally
 
@@ -173,7 +222,7 @@ Navigate through the demo pages to test different tracking scenarios:
 4. Interact with your site
 5. Verify events appear in real-time with correct parameters
 
-## Step 6: Publish Your Container
+## Step 7: Publish Your Container
 
 Once testing is complete:
 

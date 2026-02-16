@@ -28,8 +28,21 @@ The central module providing TypeScript-safe utilities for interacting with the 
 - **Core Functions**: `pushEvent()`, `trackEvent()`, `initDataLayer()`
 - **Generic Tracking**: `trackButtonClick()`, `trackExternalLink()`, `trackFormSubmit()`, `trackPageView()`
 - **Specialized Tracking**: `trackScrollDepth()`, `trackVideoEvent()`, `trackUserEngagement()`, `trackError()`
+- **Content Generator Tracking**: `trackGenerateClick()`, `trackGenerateSuccess()`, `trackGenerateFailed()`, `trackOutputGenerated()`, `trackCopyToClipboard()`
 - **Ecommerce Module**: `ecommerce.trackProductImpression()`, `trackProductClick()`, `trackAddToCart()`, `trackRemoveFromCart()`, `trackCheckoutStep()`, `trackPurchase()`
 - **Utilities**: `setUserProperties()`, `initErrorTracking()`
+
+**Automatic ref_id Tracking**: All events automatically include a `ref_id` parameter extracted from URL query parameters (e.g., `?ref_id=abc123`) and persisted in localStorage for attribution tracking across sessions.
+
+### Referral Tracking (`lib/ref-id.ts`)
+
+Handles referral ID extraction and persistence:
+
+- **Core Functions**: `initRefId()`, `getCurrentRefId()`, `extractRefIdFromUrl()`, `storeRefId()`, `getStoredRefId()`, `clearRefId()`
+- **React Hook**: `useRefId()` (in `hooks/use-ref-id.ts`)
+- **Provider Component**: `RefIdProvider` (in `components/ref-id-provider.tsx`)
+
+The ref_id is captured from URL on first visit, stored in localStorage, and automatically included in all GTM events. See [REF-ID-TRACKING.md](docs/REF-ID-TRACKING.md) for complete documentation.
 
 ### Layout Integration (`app/layout.tsx`)
 
@@ -38,6 +51,7 @@ The root layout injects GTM scripts in the `<head>`:
 - Initializes `dataLayer` and `gtag` function
 - Sets up global error handlers for JavaScript errors and unhandled promise rejections
 - Includes noscript fallback for browsers without JS
+- Wraps children with `RefIdProvider` to initialize ref_id tracking
 
 ### Demo Pages
 
@@ -48,6 +62,7 @@ The root layout injects GTM scripts in the `<head>`:
 | `/scroll-tracking` | Scroll depth tracking (25%, 50%, 75%, 100%) |
 | `/video-tracking` | Video engagement (play, pause, complete, progress, seek) |
 | `/user-engagement` | User engagement metrics |
+| `/content-generator` | Content generation with tone selection, success/failure tracking |
 
 ## Key Patterns
 
@@ -55,3 +70,27 @@ The root layout injects GTM scripts in the `<head>`:
 2. **Data Attributes**: HTML elements use `data-gtm-*` attributes (category, action, label) for GTM CSS selector triggers
 3. **Server-Side GTM**: The GTM script loads from the server in `layout.tsx` for performance
 4. **Safe Execution**: All tracking functions check `typeof window !== "undefined"` before accessing browser APIs
+5. **Automatic ref_id**: All GTM events automatically include `ref_id` from URL parameters or localStorage
+
+## Testing ref_id Tracking
+
+To test the ref_id tracking feature:
+
+```bash
+# Start dev server
+pnpm dev
+
+# Visit with ref_id parameter
+open http://localhost:3000?ref_id=test123
+
+# Check console - should see:
+# [RefID] Tracking initialized with ref_id: test123
+
+# Navigate to any page and trigger events
+# All events will include ref_id: test123
+
+# Reload without ref_id parameter
+open http://localhost:3000
+
+# ref_id persists from localStorage
+```

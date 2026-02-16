@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { GTM_ID } from "@/lib/gtm";
+import { RefIdProvider } from "@/components/ref-id-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -101,7 +102,7 @@ export default function RootLayout({
             />
           </noscript>
         )}
-        {children}
+        <RefIdProvider>{children}</RefIdProvider>
       </body>
     </html>
   );

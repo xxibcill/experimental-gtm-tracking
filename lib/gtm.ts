@@ -5,6 +5,8 @@
  * All functions safely interact with the window.dataLayer array.
  */
 
+import { getCurrentRefId } from "./ref-id";
+
 // Extend Window interface for TypeScript
 declare global {
   interface Window {
@@ -39,8 +41,10 @@ export function pushEvent(
   eventParams?: Record<string, unknown>
 ): void {
   if (typeof window !== "undefined") {
+    const refId = getCurrentRefId();
     window.dataLayer.push({
       event: eventName,
+      ref_id: refId,
       ...eventParams,
     });
   }

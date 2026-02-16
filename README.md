@@ -1,4 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GTM Learning Project
+
+A comprehensive Next.js 16 implementation demonstrating Google Tag Manager (GTM) integration patterns, including e-commerce tracking, scroll depth, video engagement, and referral attribution.
+
+## 📚 Documentation
+
+- **[GTM Setup Guide](./docs/GTM-SETUP-GUIDE.md)** - Complete step-by-step GTM configuration
+- **[Referral Tracking Guide](./docs/REF-ID-TRACKING.md)** - ref_id attribution tracking system
+- **[Testing Guide](./docs/TEST-REF-ID.md)** - Quick testing and verification guide
+- **[All Documentation](./docs/)** - Browse all guides and resources
 
 ## Getting Started
 
@@ -30,17 +39,21 @@ Replace `GTM-XXXXXXX` with your Google Tag Manager container ID.
 | `/scroll-tracking` | Scroll depth tracking |
 | `/video-tracking` | Video engagement tracking |
 | `/user-engagement` | User engagement metrics |
+| `/content-generator` | Content generation with tone selection and tracking |
 
 ## Events Tracked
 
 ### Core Events
 
+**Note**: All events automatically include a `ref_id` parameter for attribution tracking when users arrive via referral links (e.g., `?ref_id=campaign123`).
+
 | Event | Description | Parameters |
 |-------|-------------|------------|
-| `button_click` | Button interactions | `button_name`, `button_text`, `button_location` |
-| `external_link_click` | External link clicks | `link_url`, `link_text`, `link_domain` |
-| `form_submit` | Form submissions | `form_name`, `form_id` |
-| `page_view` | Page views | `page_path`, `page_title` |
+| `button_click` | Button interactions | `ref_id`, `button_name`, `button_text`, `button_location` |
+| `external_link_click` | External link clicks | `ref_id`, `link_url`, `link_text`, `link_domain` |
+| `form_submit` | Form submissions | `ref_id`, `form_name`, `form_id` |
+| `page_view` | Page views | `ref_id`, `page_path`, `page_title` |
+| `generate_click` | Generate button clicks | `ref_id`, `button_name`, `category`, `cluster` |
 
 ### Ecommerce Events
 
@@ -67,9 +80,30 @@ Replace `GTM-XXXXXXX` with your Google Tag Manager container ID.
 |-------|-------------|------------|
 | `js_error` | JavaScript errors | `error_message`, `error_stack` |
 
-## GTM Setup Guide
+## Features
 
-For detailed instructions on setting up Google Tag Manager, see [GTM-SETUP-GUIDE.md](./GTM-SETUP-GUIDE.md).
+✨ **Comprehensive Tracking**
+- Button clicks, form submissions, external links
+- E-commerce funnel (view → add to cart → checkout → purchase)
+- Scroll depth tracking (25%, 50%, 75%, 100%)
+- Video engagement (play, pause, progress, complete)
+- User engagement metrics
+- Content generation tracking
+- JavaScript error tracking
+
+🎯 **Attribution Tracking**
+- Automatic `ref_id` extraction from URL parameters
+- localStorage persistence across sessions
+- All events include referral attribution
+
+🛠️ **TypeScript-Safe**
+- Full type definitions for all tracking functions
+- Type-safe event parameters
+- Autocomplete support in IDEs
+
+## Additional Resources
+
+See the **[docs](./docs/)** folder for complete documentation.
 
 ## Learn More
 
